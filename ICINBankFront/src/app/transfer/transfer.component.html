@@ -1,0 +1,65 @@
+<div class="main-content">
+    <div class="section-content section-content-p30">
+    <div class="container-fluid">
+      
+    <div class="center"> <p> Transfer </p></div>
+    &nbsp; 
+     
+    <div class="input-group input-group-sm mb-3">
+    <span class="input-group-text" id="inputGroup-sizing-sm">Description</span>
+    <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  [(ngModel)]='transaction.description'>
+    </div>
+           
+   
+   
+   
+    &nbsp; 
+  <div class="input-group input-group-sm mb-3">
+        <span class="input-group-text" id="inputGroup-sizing-sm">TransactionAmount</span>
+        <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  [(ngModel)]='transaction.transactionAmount'>
+        </div>
+    &nbsp; 
+
+        <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm">SourceAccountNumber</span>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  [(ngModel)]='transaction.sourceAccountNumber'>
+        </div>
+     &nbsp; 
+
+        <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm">DestinationAccountNumber</span>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  [(ngModel)]='transaction.destinationAccountNumber'>
+        </div>
+    &nbsp; 
+
+        <div class="input-group input-group-sm mb-3">
+            <span class="input-group-text" id="inputGroup-sizing-sm">IFSC</span>
+            <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  [(ngModel)]='transaction.ifsc'>
+        </div>
+
+                
+   
+ 
+                 
+   
+    &nbsp;   
+    <div style="text-align:center">
+        <button  class="btn btn-primary btn-sm"type="button" (click)="createTransaction(transaction)" >Submit</button>
+    </div> 
+    
+    
+    </div>
+    </div>
+    </div>
+    
+   
+    
+            
+    
+    
+    
+    
+    
+    
+
+

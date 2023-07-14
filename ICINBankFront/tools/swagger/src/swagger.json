@@ -1,0 +1,1043 @@
+{
+  "swagger" : "2.0",
+  "info" : {
+    "description" : "ICINBank API documentation",
+    "version" : "0.0.1-SNAPSHOT",
+    "title" : "ICINBank REST API",
+    "contact" : {
+      "name" : "Nader Ben Khalifa",
+      "email" : "nader.benkhalifa78@gmail.com"
+    }
+  },
+  "basePath" : "http://localhost:8040",
+  "tags" : [ {
+    "name" : "admins"
+  }, {
+    "name" : "chequeBooks"
+  }, {
+    "name" : "parimaryAccounts"
+  }, {
+    "name" : "savingAccounts"
+  }, {
+    "name" : "transactions"
+  }, {
+    "name" : "users"
+  } ],
+  "paths" : {
+    "/ICINBank/accounts/primary" : {
+      "get" : {
+        "tags" : [ "parimaryAccounts" ],
+        "summary" : " return List of  available primary accounts in the system",
+        "description" : "This method allows to return all available primary accounts in the system",
+        "operationId" : "retrieveAllAccounts",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "The list of primaryAccount / An empty list",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/PrimaryAccount"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ICINBank/accounts/primary/{accountNumber}/balance" : {
+      "get" : {
+        "tags" : [ "parimaryAccounts" ],
+        "summary" : "Find the balance available for a given primary account",
+        "description" : "This method allows to find the balance available for a given primary account",
+        "operationId" : "retrieveAccountBalance",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "accountNumber",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "balance value",
+            "schema" : {
+              "type" : "integer",
+              "format" : "int64"
+            }
+          }
+        }
+      }
+    },
+    "/ICINBank/accounts/saving" : {
+      "get" : {
+        "tags" : [ "savingAccounts" ],
+        "summary" : " return List of  available saving accounts in the system",
+        "description" : "This method allows to return all available saving accounts in the system",
+        "operationId" : "retrieveAllAccounts",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "The list of Saving Accounts / An empty list",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/SavingsAccount"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ICINBank/accounts/saving/{accountNumber}/balance" : {
+      "get" : {
+        "tags" : [ "savingAccounts" ],
+        "summary" : "Find the balance available for a given saving account",
+        "description" : "This method allows to find the balance available for a given saving account",
+        "operationId" : "retrieveAccountBalance",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "accountNumber",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "balance value",
+            "schema" : {
+              "type" : "integer",
+              "format" : "int64"
+            }
+          }
+        }
+      }
+    },
+    "/ICINBank/accounts/{accountId}/transactions" : {
+      "get" : {
+        "tags" : [ "transactions" ],
+        "summary" : "return List of transactions for a given bank account",
+        "description" : "This method allows to  return List of transactions for a given bank account in the DB",
+        "operationId" : "retrieveAccountTransactions",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "accountId",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The list of transactions / An empty list",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Transaction"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ICINBank/admins/all" : {
+      "get" : {
+        "tags" : [ "admins" ],
+        "summary" : "Returns the list of administrators",
+        "description" : "This method allows you to search and return the list of administrators that existin the DB",
+        "operationId" : "findAll",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "The list of administrators / An empty list",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/Admin"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ICINBank/admins/confirmChequeFalse/{id}" : {
+      "get" : {
+        "tags" : [ "chequeBooks" ],
+        "summary" : "refuse a cheque-book by ID",
+        "description" : "This method allows you to refuse a cheque-book by its ID",
+        "operationId" : "ChequeBookRequestFalse",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "cheque-book has been refused"
+          }
+        }
+      }
+    },
+    "/ICINBank/admins/confirmChequeTrue/{id}" : {
+      "get" : {
+        "tags" : [ "chequeBooks" ],
+        "summary" : "confirm a  cheque-book by ID",
+        "description" : "This method allows you to confirm a cheque-book book by its ID",
+        "operationId" : "ChequeBookRequestTrue",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "cheque-book has been confirmed"
+          }
+        }
+      }
+    },
+    "/ICINBank/admins/create" : {
+      "post" : {
+        "tags" : [ "admins" ],
+        "summary" : "Register an administrator",
+        "description" : "This method allows you to register an administrator",
+        "operationId" : "save",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/Admin"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The administrator object is created",
+            "schema" : {
+              "$ref" : "#/definitions/Admin"
+            }
+          },
+          "400" : {
+            "description" : "Administrator object is invalid"
+          }
+        }
+      }
+    },
+    "/ICINBank/admins/delete/{idadmin}" : {
+      "delete" : {
+        "tags" : [ "admins" ],
+        "summary" : "Delete an administrator",
+        "description" : "This method allows you to delete an administrator by ID",
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "idadmin",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "administrator has been deleted"
+          }
+        }
+      }
+    },
+    "/ICINBank/admins/find/{email}" : {
+      "get" : {
+        "tags" : [ "admins" ],
+        "summary" : "Search the list of administrators by email",
+        "description" : "This method allows to Search the list of administrators by email",
+        "operationId" : "findByEmail",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "email",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The list of administrators /empty list",
+            "schema" : {
+              "$ref" : "#/definitions/Admin"
+            }
+          }
+        }
+      }
+    },
+    "/ICINBank/admins/find/{id}" : {
+      "get" : {
+        "tags" : [ "admins" ],
+        "summary" : "Search for an administrator by ID",
+        "description" : "This method allows you to search for an administrator by his ID",
+        "operationId" : "findById",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The administrator was found in the DB",
+            "schema" : {
+              "$ref" : "#/definitions/Admin"
+            }
+          },
+          "404" : {
+            "description" : "No administrator exists in the DB with the provided ID"
+          }
+        }
+      }
+    },
+    "/ICINBank/admins/get/{email}/{password}" : {
+      "get" : {
+        "tags" : [ "admins" ],
+        "summary" : "Find an administrator by email and password",
+        "description" : "This method allows you to search for an administrator by his email and password",
+        "operationId" : "findByEmailAndPassword",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "email",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "password",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The administrator was found in the DB",
+            "schema" : {
+              "$ref" : "#/definitions/Admin"
+            }
+          },
+          "404" : {
+            "description" : "No administrator exists in the database"
+          }
+        }
+      }
+    },
+    "/ICINBank/admins/{password}" : {
+      "get" : {
+        "tags" : [ "admins" ],
+        "summary" : "Search the list of administrators by password",
+        "description" : "This method allows to Search the list of administrators by password",
+        "operationId" : "findByPassword",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "password",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The list of administrators/empty list",
+            "schema" : {
+              "$ref" : "#/definitions/Admin"
+            }
+          }
+        }
+      }
+    },
+    "/ICINBank/chequeBooks/all" : {
+      "get" : {
+        "tags" : [ "chequeBooks" ],
+        "summary" : "Returns the list of Cheque-books",
+        "description" : "this method allows you to search and return the list of Cheque-books  that existin the DB",
+        "operationId" : "AllChequeBooks",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "The list of Cheque-books / An empty list",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/ChequeBook"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ICINBank/chequeBooks/create" : {
+      "post" : {
+        "tags" : [ "chequeBooks" ],
+        "summary" : "create a cheque-book",
+        "description" : "This method is used to create a cheque-book",
+        "operationId" : "create",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/ChequeBook"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The Cheque-book object is created",
+            "schema" : {
+              "$ref" : "#/definitions/ChequeBook"
+            }
+          },
+          "400" : {
+            "description" : "The Cheque-book  object is invalid"
+          }
+        }
+      }
+    },
+    "/ICINBank/chequeBooks/find/{id}" : {
+      "get" : {
+        "tags" : [ "chequeBooks" ],
+        "summary" : "Search a cheque-book by ID",
+        "description" : "This method allows you to search for a cheque-book by its ID",
+        "operationId" : "findById",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "cheque-book was found in the database",
+            "schema" : {
+              "$ref" : "#/definitions/ChequeBook"
+            }
+          },
+          "404" : {
+            "description" : "No cheque-book exists in the database with the provided ID"
+          }
+        }
+      }
+    },
+    "/ICINBank/deposit/primary/{accNo}/{amount}" : {
+      "get" : {
+        "tags" : [ "parimaryAccounts" ],
+        "summary" : "deposit amount into primary account",
+        "description" : "This method allows to deposit amount into primary account",
+        "operationId" : "deposit",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "accNo",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "amount",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "the operation is performed successfully",
+            "schema" : {
+              "type" : "integer",
+              "format" : "int64"
+            }
+          }
+        }
+      }
+    },
+    "/ICINBank/deposit/saving/{accNo}/{amount}" : {
+      "get" : {
+        "tags" : [ "savingAccounts" ],
+        "summary" : "deposit amount into saving account",
+        "description" : "This method allows to deposit amount into saving account",
+        "operationId" : "deposit",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "accNo",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "amount",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "the operation is performed successfully",
+            "schema" : {
+              "type" : "integer",
+              "format" : "int64"
+            }
+          }
+        }
+      }
+    },
+    "/ICINBank/find/primary/{accNo}" : {
+      "get" : {
+        "tags" : [ "parimaryAccounts" ],
+        "summary" : "find primary account by account Number",
+        "description" : "This method allows to find primary account by account Number",
+        "operationId" : "getAccountByAccountNumber",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "accNo",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "primary account was found in DB",
+            "schema" : {
+              "$ref" : "#/definitions/PrimaryAccount"
+            }
+          }
+        }
+      }
+    },
+    "/ICINBank/find/saving/{accNo}" : {
+      "get" : {
+        "tags" : [ "savingAccounts" ],
+        "summary" : "find saving account by account Number",
+        "description" : "This method allows to find saving account by account Number",
+        "operationId" : "getAccountByAccountNumber",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "accNo",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "saving account was found in DB",
+            "schema" : {
+              "$ref" : "#/definitions/SavingsAccount"
+            }
+          }
+        }
+      }
+    },
+    "/ICINBank/primary-account/create" : {
+      "post" : {
+        "tags" : [ "parimaryAccounts" ],
+        "summary" : "Register primary-account",
+        "description" : "This method allows you to register primary-account",
+        "operationId" : "save",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/PrimaryAccount"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The  primary-account is created",
+            "schema" : {
+              "$ref" : "#/definitions/PrimaryAccount"
+            }
+          },
+          "400" : {
+            "description" : "primary-account object is invalid"
+          }
+        }
+      }
+    },
+    "/ICINBank/saving-account/create" : {
+      "post" : {
+        "tags" : [ "savingAccounts" ],
+        "summary" : "Register saving-account",
+        "description" : "This method allows you to register saving-account",
+        "operationId" : "save",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/SavingsAccount"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The  saving-account is created",
+            "schema" : {
+              "$ref" : "#/definitions/SavingsAccount"
+            }
+          },
+          "400" : {
+            "description" : "saving-account object is invalid"
+          }
+        }
+      }
+    },
+    "/ICINBank/transactions/create" : {
+      "post" : {
+        "tags" : [ "transactions" ],
+        "summary" : "register a trnsaction",
+        "description" : "This method allows you to register a transaction",
+        "operationId" : "createTransaction",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/Transaction"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The transaction object is created",
+            "schema" : {
+              "$ref" : "#/definitions/Transaction"
+            }
+          },
+          "400" : {
+            "description" : "The transaction object is invalid"
+          }
+        }
+      }
+    },
+    "/ICINBank/transfer/create" : {
+      "post" : {
+        "tags" : [ "transactions" ],
+        "summary" : "register a transfer",
+        "description" : "This method allows you to register a transfer",
+        "operationId" : "transferMoney",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/Transaction"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The transfer object is created",
+            "schema" : {
+              "type" : "object"
+            }
+          },
+          "400" : {
+            "description" : "The transfer object is invalid"
+          }
+        }
+      }
+    },
+    "/ICINBank/user/find/{email}" : {
+      "get" : {
+        "tags" : [ "users" ],
+        "summary" : "Search the list of users by email",
+        "description" : "This method allows to Search the list of users by email",
+        "operationId" : "findByEmail",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "email",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The list of users/empty list",
+            "schema" : {
+              "$ref" : "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/ICINBank/users/all" : {
+      "get" : {
+        "tags" : [ "users" ],
+        "summary" : "Returns the list of users",
+        "description" : "This method allows to search and return the list of users that existin the DB",
+        "operationId" : "findAll",
+        "produces" : [ "application/json" ],
+        "responses" : {
+          "200" : {
+            "description" : "The list of users / An empty list",
+            "schema" : {
+              "type" : "array",
+              "items" : {
+                "$ref" : "#/definitions/User"
+              }
+            }
+          }
+        }
+      }
+    },
+    "/ICINBank/users/create" : {
+      "post" : {
+        "tags" : [ "users" ],
+        "summary" : "Register a user",
+        "description" : "This method allows you to register a user",
+        "operationId" : "save",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/User"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The user object is created",
+            "schema" : {
+              "$ref" : "#/definitions/User"
+            }
+          },
+          "400" : {
+            "description" : "User object is invalid"
+          }
+        }
+      }
+    },
+    "/ICINBank/users/delete/{iduser}" : {
+      "delete" : {
+        "tags" : [ "users" ],
+        "summary" : "Delete a user",
+        "description" : "This method allows you to delete a user by ID",
+        "operationId" : "delete",
+        "parameters" : [ {
+          "name" : "iduser",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "user has been deleted"
+          }
+        }
+      }
+    },
+    "/ICINBank/users/find/{id}" : {
+      "get" : {
+        "tags" : [ "users" ],
+        "summary" : "Find a user by ID",
+        "description" : "This method allows you to search for a user by his ID",
+        "operationId" : "findById",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "id",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "User was found in DB",
+            "schema" : {
+              "$ref" : "#/definitions/User"
+            }
+          },
+          "404" : {
+            "description" : "No user exists in the DB with the provided ID"
+          }
+        }
+      }
+    },
+    "/ICINBank/users/get/{email}/{password}" : {
+      "get" : {
+        "tags" : [ "users" ],
+        "summary" : "Search for a user by email and password",
+        "description" : "This method allows you to search for a user by his email and password",
+        "operationId" : "findByEmailAndPassword",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "email",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        }, {
+          "name" : "password",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "User was found in DB",
+            "schema" : {
+              "$ref" : "#/definitions/User"
+            }
+          },
+          "404" : {
+            "description" : "No user exists in the DB"
+          }
+        }
+      }
+    },
+    "/ICINBank/users/login/create" : {
+      "post" : {
+        "tags" : [ "users" ],
+        "summary" : "Register userlogin",
+        "description" : "This method allows to save a userlogin",
+        "operationId" : "addUserLogin",
+        "consumes" : [ "application/json" ],
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "in" : "body",
+          "name" : "body",
+          "required" : false,
+          "schema" : {
+            "$ref" : "#/definitions/User"
+          }
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The userlogin object is created",
+            "schema" : {
+              "$ref" : "#/definitions/User"
+            }
+          },
+          "400" : {
+            "description" : "Userlogin object is invalid"
+          }
+        }
+      }
+    },
+    "/ICINBank/users/{password}" : {
+      "get" : {
+        "tags" : [ "users" ],
+        "summary" : "Search the list of users by password",
+        "description" : "This method allows to Search the list of users by password",
+        "operationId" : "findByPassword",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "password",
+          "in" : "path",
+          "required" : true,
+          "type" : "string"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "The list of users /empty list",
+            "schema" : {
+              "$ref" : "#/definitions/User"
+            }
+          }
+        }
+      }
+    },
+    "/ICINBank/withdraw/primary/{accNo}/{amount}" : {
+      "get" : {
+        "tags" : [ "parimaryAccounts" ],
+        "summary" : "withdraw of amount from an primary account",
+        "description" : "This method allows to withdraw of amount from an primary account",
+        "operationId" : "withdraw",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "accNo",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "amount",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "the operation is performed successfully",
+            "schema" : {
+              "type" : "integer",
+              "format" : "int64"
+            }
+          }
+        }
+      }
+    },
+    "/ICINBank/withdraw/saving/{accNo}/{amount}" : {
+      "get" : {
+        "tags" : [ "savingAccounts" ],
+        "summary" : "withdraw of amount from an saving account",
+        "description" : "This method allows to withdraw of amount from an saving account",
+        "operationId" : "withdraw",
+        "produces" : [ "application/json" ],
+        "parameters" : [ {
+          "name" : "accNo",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int32"
+        }, {
+          "name" : "amount",
+          "in" : "path",
+          "required" : true,
+          "type" : "integer",
+          "format" : "int64"
+        } ],
+        "responses" : {
+          "200" : {
+            "description" : "the operation is performed successfully",
+            "schema" : {
+              "type" : "integer",
+              "format" : "int64"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions" : {
+    "Admin" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "password" : {
+          "type" : "string"
+        }
+      }
+    },
+    "ChequeBook" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "accepted" : {
+          "type" : "boolean"
+        },
+        "primaryAccount" : {
+          "$ref" : "#/definitions/PrimaryAccount"
+        }
+      }
+    },
+    "PrimaryAccount" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "accountNumber" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "accountBalance" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "SavingsAccount" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "accountNumber" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "accountBalance" : {
+          "type" : "integer",
+          "format" : "int64"
+        }
+      }
+    },
+    "Transaction" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "description" : {
+          "type" : "string"
+        },
+        "transactionAmount" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "sourceAccountNumber" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "destinationAccountNumber" : {
+          "type" : "integer",
+          "format" : "int32"
+        },
+        "ifsc" : {
+          "type" : "string"
+        }
+      }
+    },
+    "User" : {
+      "type" : "object",
+      "properties" : {
+        "id" : {
+          "type" : "integer",
+          "format" : "int64"
+        },
+        "fullName" : {
+          "type" : "string"
+        },
+        "email" : {
+          "type" : "string"
+        },
+        "password" : {
+          "type" : "string"
+        },
+        "address" : {
+          "type" : "string"
+        },
+        "contactNumber" : {
+          "type" : "string"
+        }
+      }
+    }
+  }
+}
